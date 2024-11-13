@@ -6,3 +6,6 @@
 /Project/TamajiiGame/obj
 /Project/TamajiiGame/Temp
 /Project/TamajiiGame/UserSettings
+*.csproj
+/Project/TamajiiGame/Build
+*.sln

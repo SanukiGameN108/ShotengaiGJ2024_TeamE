@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Missile
   layers:
   - Default
   - TransparentFX
@@ -11,8 +12,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Tamajii
+  - CrossArea
   - 
   - 
   - 
@@ -40,4 +41,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Trash
+    uniqueID: 2249116503
+    locked: 0
+  - name: HPGauge
+    uniqueID: 242689863
+    locked: 0
+  - name: Effect
+    uniqueID: 1988218035
     locked: 0

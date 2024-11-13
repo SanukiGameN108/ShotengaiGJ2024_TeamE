@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: TamajiiAvatarMask
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: hatimaki
+    m_Weight: 0
+  - m_Path: maekake
+    m_Weight: 0
+  - m_Path: maekake2
+    m_Weight: 0
+  - m_Path: megane
+    m_Weight: 0
+  - m_Path: tamadixi
+    m_Weight: 0
+  - m_Path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2"
+    m_Weight: 0
+  - m_Path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Hips"
+    m_Weight: 0
+  - m_Path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Hips/Spine"
+    m_Weight: 0
+  - m_Path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Hips/Spine/Chest"
+    m_Weight: 0
+  - m_Path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Hips/Spine/Chest/Neck"
+    m_Weight: 0
+  - m_Path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Hips/Spine/Chest/Neck/Head"
+    m_Weight: 0
+  - m_Path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Hips/Spine/Chest/Neck/Head/Head_end"
+    m_Weight: 0
+  - m_Path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Hips/Spine/Chest/UpperArm_L"
+    m_Weight: 0
+  - m_Path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Hips/Spine/Chest/UpperArm_L/LowerArm_L"
+    m_Weight: 0
+  - m_Path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Hips/Spine/Chest/UpperArm_L/LowerArm_L/Hand_L"
+    m_Weight: 0
+  - m_Path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Hips/Spine/Chest/UpperArm_L/LowerArm_L/Hand_L/Hand_L_end"
+    m_Weight: 0
+  - m_Path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Hips/Spine/Chest/UpperArm_R"
+    m_Weight: 1
+  - m_Path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Hips/Spine/Chest/UpperArm_R/LowerArm_R"
+    m_Weight: 1
+  - m_Path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Hips/Spine/Chest/UpperArm_R/LowerArm_R/Hand_R"
+    m_Weight: 1
+  - m_Path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Hips/Spine/Chest/UpperArm_R/LowerArm_R/Hand_R/Hand_R_end"
+    m_Weight: 1
+  - m_Path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Hips/UpperLeg_L"
+    m_Weight: 0
+  - m_Path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Hips/UpperLeg_L/LowerLeg_L"
+    m_Weight: 0
+  - m_Path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Hips/UpperLeg_L/LowerLeg_L/Foot_L"
+    m_Weight: 0
+  - m_Path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Hips/UpperLeg_L/LowerLeg_L/Foot_L/Foot_L_end"
+    m_Weight: 0
+  - m_Path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Hips/UpperLeg_R"
+    m_Weight: 0
+  - m_Path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Hips/UpperLeg_R/LowerLeg_R"
+    m_Weight: 0
+  - m_Path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Hips/UpperLeg_R/LowerLeg_R/Foot_R"
+    m_Weight: 0
+  - m_Path: "\u30A2\u30FC\u30DE\u30C1\u30E5\u30A2/Hips/UpperLeg_R/LowerLeg_R/Foot_R/Foot_R_end"
+    m_Weight: 0
