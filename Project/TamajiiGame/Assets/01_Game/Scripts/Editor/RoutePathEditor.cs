@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.SceneManagement;
+using UnityEditor.SceneManagement;
 
 [CustomEditor(typeof(RoutePath))]
 public class RoutePathEditor : Editor
@@ -18,6 +20,8 @@ public class RoutePathEditor : Editor
 
         var crossDataArray = serializedObject.FindProperty("m_crossData");
         crossDataCount = crossDataArray.arraySize;
+
+        EditorGUI.BeginChangeCheck();
 
         EditorGUILayout.BeginHorizontal();
         root.foldout = EditorGUILayout.Foldout(root.foldout, "êÿÇËë÷Ç¶É|ÉCÉìÉg");
@@ -188,6 +192,13 @@ public class RoutePathEditor : Editor
         }
 
         //base.OnInspectorGUI();
+
+        if (EditorGUI.EndChangeCheck())
+        {
+            EditorUtility.SetDirty(root);
+            var scene = SceneManager.GetActiveScene();
+            EditorSceneManager.MarkSceneDirty(scene);
+        }
 
         serializedObject.ApplyModifiedProperties();
     }
