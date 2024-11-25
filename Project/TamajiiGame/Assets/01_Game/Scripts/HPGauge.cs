@@ -16,11 +16,18 @@ public class HPGauge : MonoBehaviour
     [SerializeField]
     private Color m_color2 = Color.red;
 
+    private CanvasGroup m_cg = null;
+
     private void Awake()
     {
+        m_cg = GetComponent<CanvasGroup>();
         SetHP(1.0f, 1.0f);
     }
 
+    public void SetShow(bool show)
+    {
+        m_cg.alpha = show ? 1f : 0f;
+    }
 
     public void SetHP(float hp, float hpMax)
     {

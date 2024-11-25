@@ -9,6 +9,10 @@ public class CountDown : MonoBehaviour
     private List<RectTransform> m_countRTs = new List<RectTransform>();
     [SerializeField]
     private Image m_bgImg = null;
+    [SerializeField]
+    private AudioSource m_se0 = null;
+    [SerializeField]
+    private AudioSource m_se1 = null;
 
     private void Start()
     {
@@ -24,10 +28,17 @@ public class CountDown : MonoBehaviour
     {
         var elapsed = 0f;
         var time = 4f;
+        var isPlaySE = false;
+        var lastIndex = -1;
         while (elapsed < time)
         {
             var et = elapsed - (int)elapsed;
             int index = Mathf.FloorToInt(time - elapsed);
+            if (index != lastIndex)
+            {
+                lastIndex = index;
+                isPlaySE = false;
+            }
             for (int i = 0; i < m_countRTs.Count; i++)
             {
                 m_countRTs[i].gameObject.SetActive(i == index);
@@ -43,6 +54,18 @@ public class CountDown : MonoBehaviour
                 }
                 else if (et <= 0.75f)
                 {
+                    if (!isPlaySE)
+                    {
+                        if (index == 0)
+                        {
+                            m_se1.Play();
+                        }
+                        else
+                        {
+                            m_se0.Play();
+                        }
+                        isPlaySE = true;
+                    }
                 }
                 else
                 {

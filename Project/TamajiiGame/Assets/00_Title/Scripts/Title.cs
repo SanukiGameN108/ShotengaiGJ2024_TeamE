@@ -18,6 +18,14 @@ public class Title : MonoBehaviour
         PlayAnim();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
+
     private void PlayAnim()
     {
         StartCoroutine(Co_PlayAnim());
@@ -70,7 +78,7 @@ public class Title : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                SceneManager.LoadScene("Game");
+                SceneManager.LoadScene("Game_backup");
             }
             yield return null;
         }

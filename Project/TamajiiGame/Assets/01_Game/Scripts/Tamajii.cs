@@ -5,12 +5,19 @@ using Cinemachine;
 
 public class Tamajii : MonoBehaviour
 {
+    private static Tamajii ms_instance = null;
+    public static Tamajii instance { get { return ms_instance; } }
+
+    [SerializeField]
+    private float m_attackRange = 5f;
     [SerializeField]
     private float m_moveSpeed = 10f;
     [SerializeField]
     private RoutePath m_movePath = null;
     [SerializeField]
     private GameObject m_dustEffectPrefab = null;
+    [SerializeField]
+    private AttackRange m_attackRangeEff = null;
 
     [SerializeField]
     private float m_moveDist = 0f;
@@ -25,10 +32,26 @@ public class Tamajii : MonoBehaviour
 
     private float m_effectElapsedTime = 0f;
 
+    private AnimEvent m_animEvent = null;
+
     private Animator m_animator = null;
+
+    [SerializeField]
+    private AudioSource m_attackSE = null;
+
+    private void Attack()
+    {
+        if (GameManager.isGameClear) return;
+        m_attackSE.Play();
+    }
 
     private void Awake()
     {
+        m_animEvent = GetComponentInChildren<AnimEvent>();
+        m_animEvent.onAttackEvent.AddListener(Attack);
+
+        ms_instance = this;
+
         m_pathDist = m_movePath.GetPathLength();
         m_lastPos = m_movePath.GetPathPos(m_moveDist);
 
@@ -37,6 +60,11 @@ public class Tamajii : MonoBehaviour
         m_broomTF.SetParent(m_normalTF);
         m_broomTF.localPosition = Vector3.zero;
         m_broomTF.localRotation = Quaternion.identity;
+    }
+
+    private void OnDestroy()
+    {
+        ms_instance = null;
     }
 
     private PathElem GetSwitchPath()
@@ -83,6 +111,7 @@ public class Tamajii : MonoBehaviour
     private void Update()
     {
         if (!GameManager.isGameStart) return;
+        if (GameManager.isGameClear) return;
 
         // 移動方向（順ルートが逆ルートか）に合わせて、たまぢぃを移動
         float moveSpeed = m_moveSpeed * Time.deltaTime * m_speedRatio;
@@ -90,12 +119,14 @@ public class Tamajii : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space))
         {
-            if (m_effectElapsedTime >= m_effectTime)
-            {
-                PlayDustEffect();
-                m_effectElapsedTime -= m_effectTime;
-            }
-            m_effectElapsedTime += Time.deltaTime;
+            m_attackRangeEff.SetOn(true);
+            GameManager.SetOnMotionBlur(false);
+            //if (m_effectElapsedTime >= m_effectTime)
+            //{
+            //    PlayDustEffect();
+            //    m_effectElapsedTime -= m_effectTime;
+            //}
+            //m_effectElapsedTime += Time.deltaTime;
 
             m_animator.SetBool("IsAttack", true);
             m_broomTF.SetParent(m_attackTF);
@@ -104,10 +135,16 @@ public class Tamajii : MonoBehaviour
 
             m_speedRatio = Mathf.Lerp(m_speedRatio, m_speedDownRatio, changeSpeed * Time.deltaTime);
 
-            TrashManager.TakeDamage(transform.position);
+            TrashManager.TakeDamage(transform.position, m_attackRange);
         }
         else
         {
+            if (m_attackSE.isPlaying)
+            {
+                m_attackSE.Stop();
+            }
+            m_attackRangeEff.SetOn(false);
+            GameManager.SetOnMotionBlur(true);
             m_effectElapsedTime = 0f;
 
             m_animator.SetBool("IsAttack", false);

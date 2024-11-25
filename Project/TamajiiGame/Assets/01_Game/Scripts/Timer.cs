@@ -9,6 +9,11 @@ public class Timer : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI m_timeText = null;
 
+    public void SetShow(bool show)
+    {
+        gameObject.SetActive(show);
+    }
+
     public void SetTime(float time)
     {
         int minute = (int)(time / 60f);

@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01_Game/Game.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 0
+    path: Assets/01_Game/Game_backup.unity
+    guid: 0c82d8f31aa845b49916c196e4d3adc5
   m_configObjects: {}
