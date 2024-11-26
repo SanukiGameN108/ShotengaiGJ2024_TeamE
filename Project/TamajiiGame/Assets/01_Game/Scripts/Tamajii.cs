@@ -22,6 +22,7 @@ public class Tamajii : MonoBehaviour
     [SerializeField]
     private float m_moveDist = 0f;
     private float m_pathDist = 0f;
+    private float m_targetDist = 0f;
     private bool m_isFowardRoute = true;
 
     [SerializeField]
@@ -54,6 +55,8 @@ public class Tamajii : MonoBehaviour
 
         m_pathDist = m_movePath.GetPathLength();
         m_lastPos = m_movePath.GetPathPos(m_moveDist);
+        m_isFowardRoute = true;
+        m_targetDist = m_isFowardRoute ? m_pathDist : 0f;
 
         m_animator = GetComponentInChildren<Animator>();
 
@@ -107,6 +110,20 @@ public class Tamajii : MonoBehaviour
     private Transform m_normalTF = null;
     [SerializeField]
     private Transform m_attackTF = null;
+
+    private bool IsEndRoute()
+    {
+        if (m_isFowardRoute)
+        {
+            if (m_moveDist >= m_targetDist) return true;
+        }
+        else
+        {
+            if (m_moveDist <= m_targetDist) return true;
+        }
+
+        return false;
+    }
 
     private void Update()
     {
@@ -169,12 +186,21 @@ public class Tamajii : MonoBehaviour
                     m_pathDist = m_movePath.GetPathLength();
                     m_moveDist = m_pathDist * switchPath.pos;
                     m_isFowardRoute = switchPath.isForwardRoute;
+                    m_targetDist = m_isFowardRoute ? m_pathDist : 0f;
+                    if (!m_isFowardRoute && Mathf.Abs(m_moveDist) <= 0.1f)
+                    {
+                        m_moveDist = m_pathDist;
+                    }
+                    else if (m_isFowardRoute && m_moveDist >= m_pathDist - 0.1f)
+                    {
+                        m_moveDist = 0f;
+                    }
                 }
             }
         }
 
         // 移動パスの範囲外に移動した場合
-        if (!(0f <= m_moveDist && m_moveDist <= m_pathDist))
+        if (IsEndRoute())
         {
             // 接続先の移動パスが存在するかどうか
             bool isConnect = false;
@@ -188,14 +214,26 @@ public class Tamajii : MonoBehaviour
                     m_pathDist = m_movePath.GetPathLength();
                     m_moveDist = m_pathDist * connectPath.pos;
                     m_isFowardRoute = connectPath.isForwardRoute;
+                    m_targetDist = m_isFowardRoute ? m_pathDist : 0f;
+                    if (!m_isFowardRoute && Mathf.Abs(m_moveDist) <= 0.01f)
+                    {
+                        m_moveDist = m_pathDist;
+                    }
+                    else if (m_isFowardRoute && m_moveDist >= m_pathDist - 0.01f)
+                    {
+                        m_moveDist = 0f;
+                    }
                     isConnect = true;
                 }
             }
 
-            // 移動パスを変更していなければ、現在の移動パスの先頭に戻す
+            // 移動パスを変更していなければ、
             if (!isConnect)
             {
-                m_moveDist -= m_pathDist;
+                // 順ルートなら、パスの先頭へ戻す
+                if (m_isFowardRoute) m_moveDist -= m_pathDist;
+                // 逆ルートなら、パスの最後へ戻す
+                else m_moveDist += m_pathDist;
             }
         }
 

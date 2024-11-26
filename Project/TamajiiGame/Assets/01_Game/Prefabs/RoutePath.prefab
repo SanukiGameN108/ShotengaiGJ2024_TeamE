@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc18e20c8643e0141b0b57cd33916e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foldout: 1
-  m_path: {fileID: 6806652028787691664}
+  foldout: 0
+  m_path: {fileID: 0}
   m_crossData: []
 --- !u!114 &6806652028787691664
 MonoBehaviour:

@@ -30,11 +30,45 @@ public class CrossData
     public PathData forward = new PathData();
     public PathData reverse = new PathData();
     public Collider collider = null;
+    public float colSize = 15f;
+
+    public PathElem GetConnectPath(bool isForward)
+    {
+        if (isForward)
+        {
+            if (!forwardOn) return null;
+            if (!forward.connectPath.on) return null;
+            return forward.connectPath;
+        }
+        else
+        {
+            if (!reverseOn) return null;
+            if (!reverse.connectPath.on) return null;
+            return reverse.connectPath;
+        }
+    }
+
+    public PathElem GetSwitchPath(bool isForward)
+    {
+        if (isForward)
+        {
+            if (!forwardOn) return null;
+            if (!forward.switchPath.on) return null;
+            return forward.switchPath;
+        }
+        else
+        {
+            if (!reverseOn) return null;
+            if (!reverse.switchPath.on) return null;
+            return reverse.switchPath;
+        }
+    }
 }
 
 public class RoutePath : MonoBehaviour
 {
     public bool foldout = false;
+    public int lastCount = 0;
     [SerializeField]
     private CinemachinePathBase m_path = null;
     public CinemachinePathBase path { get { return m_path; } }
@@ -96,16 +130,16 @@ public class RoutePath : MonoBehaviour
     {
         foreach (var data in m_crossData)
         {
-            if (data.forward.connectPath    != null ||
-                data.forward.switchPath     != null ||
-                data.reverse.connectPath    != null ||
-                data.reverse.switchPath     != null)
+            if (data.GetConnectPath(true) != null   ||
+                data.GetSwitchPath(true) != null    ||
+                data.GetConnectPath(false) != null  ||
+                data.GetSwitchPath(false) != null)
             {
                 var obj = new GameObject(gameObject.name + "_Col");
                 obj.transform.SetParent(transform);
                 obj.transform.position = GetPathPos(GetPathLength() * data.pos);
                 obj.transform.localRotation = Quaternion.identity;
-                obj.transform.localScale = Vector3.one * 10f;
+                obj.transform.localScale = Vector3.one * data.colSize;
                 obj.layer = LayerMask.NameToLayer("CrossArea");
 
                 var col = obj.AddComponent<BoxCollider>();
@@ -121,7 +155,7 @@ public class RoutePath : MonoBehaviour
         var find = System.Array.Find(m_crossData, _ => _.collider == col);
         if (find == null) return null;
 
-        return isForward ? find.forward.switchPath : find.reverse.switchPath;
+        return find.GetSwitchPath(isForward);
     }
 
     public PathElem GetConnectPath(Collider col, bool isForward)
@@ -129,7 +163,7 @@ public class RoutePath : MonoBehaviour
         var find = System.Array.Find(m_crossData, _ => _.collider == col);
         if (find == null) return null;
 
-        return isForward ? find.forward.connectPath : find.reverse.connectPath;
+        return find.GetConnectPath(isForward);
     }
 
     public CinemachinePathBase GetPath()
@@ -180,7 +214,7 @@ public class RoutePath : MonoBehaviour
         {
             if (!IsDrawGizmos(data)) continue;
 
-            Vector3 size = Vector3.one * 15f;
+            Vector3 size = Vector3.one * data.colSize;
             Vector3 pos = m_path.EvaluatePositionAtUnit(data.pos, CinemachinePathBase.PositionUnits.Normalized);
             Vector3 center = pos + new Vector3(0f, size.y * 0.5f, 0f);
             Color color = Color.blue;

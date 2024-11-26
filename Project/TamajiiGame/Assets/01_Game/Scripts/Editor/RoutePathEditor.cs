@@ -29,12 +29,26 @@ public class RoutePathEditor : Editor
         crossDataCount = EditorGUILayout.IntField(crossDataCount, GUILayout.Width(48f));
         if (crossDataCount != crossDataArray.arraySize)
         {
-            int diff = crossDataCount - crossDataArray.arraySize;
             crossDataArray.arraySize = crossDataCount;
             serializedObject.ApplyModifiedProperties();
             serializedObject.Update();
         }
         EditorGUILayout.EndHorizontal();
+        if (crossData != null)
+        {
+            if (root.lastCount < crossData.Length)
+            {
+                int diff = crossData.Length - root.lastCount;
+                for (int i = 0; i < diff; i++)
+                {
+                    int index = crossData.Length - i - 1;
+                    crossData[index].colSize = 15f;
+                }
+                root.lastCount = crossData.Length;
+                serializedObject.ApplyModifiedProperties();
+                serializedObject.Update();
+            }
+        }
         if (root.foldout && crossData != null)
         {
             EditorGUI.indentLevel++;
@@ -72,6 +86,7 @@ public class RoutePathEditor : Editor
                     EditorGUILayout.BeginVertical();
                     {
                         data.pos = EditorGUILayout.Slider("位置", data.pos, 0f, 1f);
+                        data.colSize = EditorGUILayout.FloatField("サイズ", data.colSize);
                         // 順ルート
                         {
                             EditorGUIUtility.labelWidth = 160f;

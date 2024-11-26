@@ -78,7 +78,7 @@ public class Title : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                SceneManager.LoadScene("Game_backup");
+                SceneManager.LoadScene("Game");
             }
             yield return null;
         }
